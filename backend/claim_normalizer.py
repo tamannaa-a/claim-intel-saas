@@ -6,7 +6,7 @@ def _guess_loss_type(text: str) -> str:
     t = text.lower()
     if any(w in t for w in ["theft", "stolen", "robbed"]):
         return "Theft"
-    if any(w in t for w in ["accident", "collision", "crash", "hit", "impact"]):
+    if any(w in t for w in ["accident", "collision", crash", "hit", "impact"]):
         return "Accident"
     if any(w in t for w in ["fire", "burn", "flames"]):
         return "Fire"
