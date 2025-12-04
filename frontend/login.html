@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ClaimAxis Login</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body class="login-body">
+  <div class="login-gradient">
+    <div class="login-card">
+      <div class="login-brand-logo">CA</div>
+      <h1 class="login-title">ClaimAxis</h1>
+      <p class="login-tagline">AI-Powered Insurance Intelligence Platform</p>
+
+      <form id="login-form" class="login-form">
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="e.g. agent@claimaxis.com" required />
+
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="Enter password" required />
+
+        <label>Role</label>
+        <select id="login-role">
+          <option value="AGENT">Agent</option>
+          <option value="MANAGER">Manager</option>
+          <option value="ADMIN">Admin</option>
+        </select>
+
+        <button type="submit" class="primary-btn full-width">Sign in</button>
+
+        <p class="login-hint">
+          Demo accounts:<br />
+          agent@claimaxis.com / agent123<br />
+          manager@claimaxis.com / manager123<br />
+          admin@claimaxis.com / admin123
+        </p>
+
+        <p id="login-error" class="error-text hidden"></p>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
