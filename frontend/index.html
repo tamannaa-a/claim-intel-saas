@@ -2,136 +2,190 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ClaimAxis • AI Insurance Intelligence</title>
+  <title>ClaimAxis • AI-Powered Insurance Intelligence</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 </head>
-
 <body>
-
-  <div class="layout">
-    
-    <!-- Sidebar Navigation -->
+  <div class="app-shell">
+    <!-- Sidebar -->
     <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-logo">CA</div>
-        <h2>ClaimAxis</h2>
-        <p class="tagline">AI-Powered Insurance Intelligence</p>
+      <div class="sidebar-header">
+        <div class="login-line">
+          Logged in as <strong>vaikkathtamanna@gmail.com</strong><br />
+          Tenant: <span>demo-tenant</span> · Role: <span>AGENT</span>
+        </div>
+
+        <div class="brand-block">
+          <div class="brand-logo">CA</div>
+          <div class="brand-name">ClaimAxis</div>
+          <div class="brand-tagline">Driving Efficiency Across the Insurance Value Chain</div>
+        </div>
       </div>
 
-      <nav>
-        <button class="tab-button active" data-tab="doc-tab">📄 Document Classifier</button>
-        <button class="tab-button" data-tab="normalize-tab">🧩 Claim Normalizer</button>
-        <button class="tab-button" data-tab="fraud-tab">⚠️ Fraud Copilot</button>
-        <button class="tab-button" data-tab="pipeline-tab">🔗 Intelligence Pipeline</button>
+      <nav class="nav-tabs">
+        <button class="nav-tab active" data-tab="doc-tab">Document Classifier</button>
+        <button class="nav-tab" data-tab="normalizer-tab">Claims Normalizer</button>
+        <button class="nav-tab" data-tab="fraud-tab">Fraud Detector</button>
+        <button class="nav-tab" data-tab="pipeline-tab">Intelligence Pipeline</button>
       </nav>
 
+      <button class="logout-btn" type="button">Logout</button>
+
       <footer class="sidebar-footer">
-        © 2025 <strong>ClaimAxis</strong><br />
-        Smart Insurance Automation for Everyone.
+        © 2025 ClaimAxis — AI-Driven Claim Automation Platform
       </footer>
     </aside>
 
-    <!-- Main Content -->
-    <main class="content">
-      <header class="header">
-        <h1>ClaimAxis Intelligence Studio</h1>
-        <p>Automate documents, normalize claims & detect fraud on one axis.</p>
-      </header>
-
-      <!-- DOCUMENT CLASSIFIER TAB -->
+    <!-- Main content -->
+    <main class="main-area">
+      <!-- Document Classifier -->
       <section id="doc-tab" class="tab-panel active">
-        <div class="panel">
-          <h2>Document Classification Agent</h2>
-          <p>Upload a PDF (claim forms, invoices, inspection reports) and ClaimAxis will classify it with explainability.</p>
+        <h2>Document Classification Agent</h2>
+        <p class="panel-subtitle">
+          Upload a claim-related PDF and ClaimAxis will classify it, score document health, and suggest routing.
+        </p>
 
-          <div id="drop-area" class="drop-area">
-            <p>Drag & drop PDF here or click to browse.</p>
-            <input type="file" id="doc-file-input" accept="application/pdf" hidden />
+        <div class="two-column">
+          <div class="card">
+            <h3>Upload Document</h3>
+            <div id="doc-drop-area" class="drop-area">
+              <p>Drag & drop PDF here, or click to browse.</p>
+              <input type="file" id="doc-file-input" accept="application/pdf" hidden />
+            </div>
+            <div class="small-note">Supported: PDF claim forms, invoices, inspection reports, repair estimates.</div>
           </div>
 
-          <div id="doc-loader" class="loader hidden"></div>
-          <div id="doc-result" class="result-card hidden"></div>
+          <div class="card">
+            <h3>Classification Result</h3>
+            <div id="doc-loader" class="loader hidden"></div>
+            <div id="doc-result" class="result-box">
+              <span class="placeholder-text">Results will appear here.</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- CLAIM NORMALIZER TAB -->
-      <section id="normalize-tab" class="tab-panel">
-        <div class="panel">
-          <h2>Claims Description Normalizer</h2>
-          <textarea id="normalize-input" rows="7"
-            placeholder="Example: Vehicle was hit from the rear near Mumbai expressway. Moderate bumper damage. Estimated cost around 85,000 INR.">
-          </textarea>
-          <button id="normalize-btn" class="primary-btn">Normalize Claim Description</button>
+      <!-- Claims Normalizer -->
+      <section id="normalizer-tab" class="tab-panel">
+        <h2>Claims Description Normalizer</h2>
+        <p class="panel-subtitle">
+          Paste messy claim notes and ClaimAxis will convert them into structured attributes (loss type, asset, severity, amounts).
+        </p>
 
-          <div class="loader hidden" id="normalize-loader"></div>
-          <pre id="normalize-result" class="result-code hidden"></pre>
+        <div class="two-column">
+          <div class="card">
+            <h3>Raw Claim Notes</h3>
+            <textarea id="normalize-input" rows="10"
+              placeholder="Example: Policyholder reports rear-end collision near Pune on 02/11/2025. Moderate bumper damage, vehicle driveable. Estimated repair around 85000 INR.">
+            </textarea>
+            <button id="normalize-btn" class="primary-btn">Normalize Description</button>
+          </div>
+
+          <div class="card">
+            <h3>Structured Claim JSON</h3>
+            <div id="normalize-loader" class="loader hidden"></div>
+            <pre id="normalize-result" class="result-box code-block">
+<span class="placeholder-text">Normalized output will appear here.</span>
+            </pre>
+          </div>
         </div>
       </section>
 
-      <!-- FRAUD DETECTION TAB -->
+      <!-- Fraud Detector -->
       <section id="fraud-tab" class="tab-panel">
-        <div class="panel">
-          <h2>Fraud Detection Copilot</h2>
-          <textarea id="fraud-input" rows="7"
-            placeholder="Example: Customer has filed a similar damage claim two times previously. Requests urgent approval.">
-          </textarea>
+        <h2>Fraud Detection Copilot</h2>
+        <p class="panel-subtitle">
+          Analyze claim narratives and amounts to flag potential fraud with explainable reasoning.
+        </p>
 
-          <div class="input-row">
-            <input type="number" id="claimed-amount" placeholder="Claimed Amount (optional)" />
-            <input type="number" id="estimated-amount" placeholder="Estimated Repair Amount (optional)" />
+        <div class="two-column">
+          <div class="card">
+            <h3>Claim Scenario</h3>
+            <textarea id="fraud-input" rows="8"
+              placeholder="Example: This is the third claim for similar damage in six months. Customer requests urgent approval and has no police report.">
+            </textarea>
+
+            <div class="inline-inputs">
+              <input type="number" id="claimed-amount" placeholder="Claimed Amount (optional)" />
+              <input type="number" id="estimated-amount" placeholder="Estimated Repair Amount (optional)" />
+            </div>
+
+            <button id="fraud-btn" class="primary-btn">Analyze Fraud Risk</button>
           </div>
 
-          <button id="fraud-btn" class="primary-btn">Analyze Fraud Risk</button>
-
-          <div class="loader hidden" id="fraud-loader"></div>
-          <div id="fraud-result" class="result-card hidden"></div>
+          <div class="card">
+            <h3>Fraud Result</h3>
+            <div id="fraud-loader" class="loader hidden"></div>
+            <div id="fraud-result" class="result-box">
+              <span class="placeholder-text">Risk results will appear here.</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- INTELLIGENCE PIPELINE TAB -->
+      <!-- Intelligence Pipeline -->
       <section id="pipeline-tab" class="tab-panel">
-        <div class="panel">
-          <h2>End-to-End Claim Intelligence Pipeline</h2>
+        <h2>End-to-End Intelligence Pipeline</h2>
+        <p class="panel-subtitle">
+          Upload a document and optional notes & amounts to see classification, normalization, and fraud scoring in one flow.
+        </p>
 
-          <div id="pipeline-drop-area" class="drop-area">
-            <p>Drop a PDF here or click to upload.</p>
-            <input type="file" id="pipeline-file-input" accept="application/pdf" hidden />
-          </div>
+        <div class="two-column">
+          <div class="card">
+            <h3>Input</h3>
 
-          <textarea id="pipeline-text" rows="4" placeholder="Optional claim summary to enrich analysis."></textarea>
-
-          <div class="input-row">
-            <input type="number" id="pipeline-claimed" placeholder="Claimed Amount (optional)" />
-            <input type="number" id="pipeline-estimated" placeholder="Estimated Repair Amount (optional)" />
-          </div>
-
-          <button id="pipeline-btn" class="primary-btn">Run Pipeline</button>
-
-          <div class="loader hidden" id="pipeline-loader"></div>
-
-          <div id="pipeline-result" class="pipeline-grid hidden">
-            <div class="result-card pipeline-card">
-              <h3>1. Document Classification</h3>
-              <div id="pipeline-doc"></div>
+            <div id="pipeline-drop-area" class="drop-area">
+              <p>Drop a PDF here, or click to upload.</p>
+              <input type="file" id="pipeline-file-input" accept="application/pdf" hidden />
             </div>
 
-            <div class="result-card pipeline-card">
-              <h3>2. Normalized Claim</h3>
-              <pre id="pipeline-normalized"></pre>
+            <textarea id="pipeline-text" rows="5"
+              placeholder="Optional: Add extra context or claim summary to enrich analysis.">
+            </textarea>
+
+            <div class="inline-inputs">
+              <input type="number" id="pipeline-claimed" placeholder="Claimed Amount (optional)" />
+              <input type="number" id="pipeline-estimated" placeholder="Estimated Repair Amount (optional)" />
             </div>
 
-            <div class="result-card pipeline-card">
-              <h3>3. Fraud Insights</h3>
-              <div id="pipeline-fraud"></div>
-            </div>
+            <button id="pipeline-btn" class="primary-btn">Run Pipeline</button>
           </div>
 
+          <div class="card">
+            <h3>Pipeline Output</h3>
+            <div id="pipeline-loader" class="loader hidden"></div>
+
+            <div id="pipeline-result" class="pipeline-grid">
+              <div class="pipeline-column">
+                <h4>Document Classification</h4>
+                <div id="pipeline-doc" class="result-box small-box">
+                  <span class="placeholder-text">Awaiting document...</span>
+                </div>
+              </div>
+
+              <div class="pipeline-column">
+                <h4>Normalized Claim</h4>
+                <pre id="pipeline-normalized" class="result-box code-block small-box">
+<span class="placeholder-text">Normalized output will appear here.</span>
+                </pre>
+              </div>
+
+              <div class="pipeline-column">
+                <h4>Fraud Insights</h4>
+                <div id="pipeline-fraud" class="result-box small-box">
+                  <span class="placeholder-text">Fraud analysis will appear here.</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
-
   </div>
 
   <script src="script.js"></script>
