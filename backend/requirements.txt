@@ -3,3 +3,4 @@ uvicorn[standard]
 python-multipart
 PyPDF2
 pydantic
+matplotlib
