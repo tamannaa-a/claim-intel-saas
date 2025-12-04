@@ -30,7 +30,7 @@ def _guess_severity(text: str) -> str:
         return "Medium"
     if any(w in t for w in low):
         return "Low"
-    return "Medium"   # default
+    return "Medium"
 
 
 def _guess_asset(text: str) -> str:
@@ -49,11 +49,9 @@ def _guess_asset(text: str) -> str:
 
 
 def _extract_amounts(text: str):
-    # naive numeric amount extraction: first and second big numbers
     nums = re.findall(r"\b\d{3,}\b", text.replace(",", ""))
     if not nums:
         return None, None
-    # assume highest is claimed amount, second highest is estimated/repair (if available)
     nums_int = sorted([int(n) for n in nums], reverse=True)
     claimed = nums_int[0]
     estimated = nums_int[1] if len(nums_int) > 1 else None
@@ -72,7 +70,6 @@ def normalize_claim_text(text: str) -> Dict[str, Any]:
         "affected_asset": asset,
         "claimed_amount": claimed_amount,
         "estimated_repair_amount": estimated_amount,
-        "raw_text_excerpt": text[:400]  # safety
+        "raw_text_excerpt": text[:400],
     }
-
     return structured
