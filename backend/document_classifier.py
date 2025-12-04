@@ -1,6 +1,5 @@
 # backend/document_classifier.py
 from typing import Dict, Any, List
-import re
 
 DOC_TYPES = {
     "claim_form": {
@@ -40,11 +39,13 @@ DOC_TYPES = {
 
 def classify_document(text: str) -> Dict[str, Any]:
     """
-    Simple keyword-based classifier with explainability.
-    Returns:
+    Keyword-based, explainable classifier.
+    Output:
       - predicted_type
+      - predicted_type_label
       - confidence (0-1)
       - matched_keywords
+      - quality_flags
       - reasoning
     """
     text_lower = text.lower()
@@ -57,17 +58,14 @@ def classify_document(text: str) -> Dict[str, Any]:
         scores[doc_type] = len(matches)
         matched_details[doc_type] = matches
 
-    # Choose best type
     best_type = max(scores, key=scores.get)
     best_score = scores[best_type]
 
-    # Total possible matches across all types (for normalization)
     max_possible = max(len(cfg["keywords"]) for cfg in DOC_TYPES.values() if cfg["keywords"])
     confidence = 0.0
     if max_possible > 0:
         confidence = min(1.0, best_score / max_possible)
 
-    # Build reasoning
     reasoning_lines = []
     if best_score == 0:
         reasoning_lines.append(
@@ -77,15 +75,16 @@ def classify_document(text: str) -> Dict[str, Any]:
     else:
         reasoning_lines.append(
             f"Classified as {DOC_TYPES[best_type]['display_name']} because it contains "
-            f"{best_score} characteristic phrases: {', '.join(matched_details[best_type])}."
+            f"{best_score} characteristic phrase(s): {', '.join(matched_details[best_type])}."
         )
 
-    # Simple quality checks
     quality_flags = []
     if "signature" not in text_lower and "signed" not in text_lower:
-        quality_flags.append("Missing obvious signature-related text (e.g., 'Signature', 'Signed').")
-    if "date" not in text_lower and "dd/mm" not in text_lower:
+        quality_flags.append("No signature-related text detected (e.g., 'Signature', 'Signed').")
+    if "date" not in text_lower and "dd/mm" not in text_lower and "mm/dd" not in text_lower:
         quality_flags.append("No clear date field detected.")
+    if "policy" not in text_lower and "policy no" not in text_lower:
+        quality_flags.append("No policy identifier field detected.")
 
     reasoning = " ".join(reasoning_lines)
     if quality_flags:
@@ -97,5 +96,5 @@ def classify_document(text: str) -> Dict[str, Any]:
         "confidence": round(confidence, 2),
         "matched_keywords": matched_details[best_type],
         "quality_flags": quality_flags,
-        "reasoning": reasoning
+        "reasoning": reasoning,
     }
